@@ -333,7 +333,7 @@
         game.load.image('card6', 'img/card_steamboat.png');
         game.load.image('card7', 'img/card_submarine.png');
         game.load.image('card8', 'img/card_train.png');
-        game.load.spritesheet('flip', 'img/card_flip', 100, 100, 6);
+        game.load.spritesheet('flip', 'img/card_flip.png', 100, 100, 6);
     };
 
     /**
