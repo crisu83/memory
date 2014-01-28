@@ -3,18 +3,21 @@ module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
-        copy: {
-            dist: {
-                expand: true,
-                cwd: 'src/',
-                src: ['**'],
-                dest: 'dist/'
-            }
-        },
         cssmin: {
             dist: {
                 files: {
                     'dist/css/styles.css': ['src/css/styles.css']
+                }
+            }
+        },
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    'dist/index.html': 'src/index.html'
                 }
             }
         },
@@ -37,6 +40,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', []);
-    grunt.registerTask('build', ['copy:dist', 'cssmin:dist', 'uglify:dist', 'imagemin:dist']);
+    grunt.registerTask('build', ['htmlmin:dist', 'cssmin:dist', 'uglify:dist', 'imagemin:dist']);
 
 };
