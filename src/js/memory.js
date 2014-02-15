@@ -86,7 +86,7 @@ Memory.Table = Pew.Utils.inherit(Pew.Entity, {
                 }
                 self.getState().flippedCards.clear();
                 self.state = self.states.DEFAULT;
-            }, 2000);
+            }, 1500);
         }
 
         // victory check
