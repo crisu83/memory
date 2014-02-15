@@ -23,6 +23,9 @@ module.exports = function (grunt) {
         },
         imagemin: {
             dist: {
+                options: {
+                    cache: false
+                },
                 files: [{
                     expand: true,
                     cwd: 'src/',
@@ -34,7 +37,10 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
-                    'dist/js/memory.js': ['src/js/memory.js']
+                    'dist/js/lib/underscore.js': ['src/js/lib/underscore.js'],
+                    'dist/js/lib/phaser.js': ['src/js/lib/phaser.js'],
+                    'dist/js/memory.js': ['src/js/memory.js'],
+                    'dist/js/pew.js': ['src/js/pew.js']
                 }
             }
         }
