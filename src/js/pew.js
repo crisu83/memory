@@ -192,3 +192,23 @@ Pew.EntityGroup = Pew.Utils.inherit(Pew.Object, {
         }
     }
 });
+
+/**
+ * Stage base class.
+ * @class Pew.State
+ * @augments Phaser.State
+ */
+Pew.State = Pew.Utils.inherit(Phaser.State, {
+    /**
+     * Creates the stage.
+     */
+    create: function() {
+        if (!navigator.isCocoonJS) {
+            this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
+            this.game.stage.scale.minWidth = this.width;
+            this.game.stage.scale.minHeight = this.height;
+            this.game.stage.scale.pageAlignHorizontally = true;
+            this.game.stage.scale.setScreenSize(true);
+        }
+    }
+});

@@ -345,11 +345,22 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
     }
 });
 
-// create the game.
-var game = new Phaser.Game(510, 540, Phaser.AUTO, 'memory');
+var width = navigator.isCocoonJS ? window.innerHeight : 510,
+    height = navigator.isCocoonJS ? window.innerHeight : 540;
 
-// add a menu state.
-game.state.add(Memory.states.MENU, {
+// create the game.
+var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
+
+if (navigator.isCocoonJS) {
+    game.world._container.scale.x = 510 / window.innerWidth;
+    game.world._container.scale.y = 540 / window.innerHeight;
+    game.world._container.updateTransform();
+}
+
+/**
+ *
+ */
+Memory.MenuState = Pew.Utils.inherit(Pew.State, {
     /**
      * @type {Memory.Button}
      */
@@ -367,12 +378,15 @@ game.state.add(Memory.states.MENU, {
      * @param {Phaser.Game} game
      */
     create: function(game) {
+        Pew.State.prototype.create.apply(this, arguments);
         this.newGame.create();
     }
 });
 
-// add a game state.
-game.state.add(Memory.states.GAME, {
+/**
+ *
+ */
+Memory.GameState = Pew.Utils.inherit(Pew.State, {
     /**
      * @type {Memory.Table}
      */
@@ -410,6 +424,7 @@ game.state.add(Memory.states.GAME, {
      * @param {Phaser.Game} game
      */
     create: function (game) {
+        Pew.State.prototype.create.apply(this, arguments);
         this.table.create();
         this.cards.create();
         this.gui.create();
@@ -423,5 +438,7 @@ game.state.add(Memory.states.GAME, {
     }
 });
 
-// Start the game.
+game.state.add(Memory.states.MENU, new Memory.MenuState(game));
+game.state.add(Memory.states.GAME, new Memory.GameState(game));
+
 game.state.start(Memory.states.MENU);
