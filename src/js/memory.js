@@ -351,12 +351,6 @@ var width = navigator.isCocoonJS ? window.innerHeight : 510,
 // create the game.
 var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
 
-if (navigator.isCocoonJS) {
-    game.world._container.scale.x = 510 / window.innerWidth;
-    game.world._container.scale.y = 540 / window.innerHeight;
-    game.world._container.updateTransform();
-}
-
 /**
  *
  */

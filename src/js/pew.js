@@ -203,8 +203,13 @@ Pew.State = Pew.Utils.inherit(Phaser.State, {
      * Creates the stage.
      */
     create: function() {
-        if (!navigator.isCocoonJS) {
-            this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
+        if (navigator.isCocoonJS) {
+            // todo: make the size dynamic
+            this.game.world._container.scale.x = 510 / window.innerWidth;
+            this.game.world._container.scale.y = 540 / window.innerHeight;
+            this.game.world._container.updateTransform();
+        } else {
+            this.this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
             this.game.stage.scale.minWidth = this.width;
             this.game.stage.scale.minHeight = this.height;
             this.game.stage.scale.pageAlignHorizontally = true;
