@@ -346,7 +346,7 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
 });
 
 // create the game.
-var game = new Phaser.Game(510, 550, Phaser.AUTO, 'memory');
+var game = new Phaser.Game(510, 540, Phaser.AUTO, 'memory');
 
 // add a menu state.
 game.state.add(Memory.states.MENU, {
