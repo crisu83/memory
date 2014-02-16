@@ -186,10 +186,15 @@ Memory.Card = Pew.Utils.inherit(Pew.Entity, {
         flip.visible = false;
         flip.animations.add('flip');
 
+        var flipBack = this.game.add.sprite(x, y, 'flipBack');
+        flipBack.visible = false;
+        flipBack.animations.add('flipBack');
+
         this.sprites = {
             back: back,
             front: front,
-            flip: flip
+            flip: flip,
+            flipBack: flipBack
         };
 
         this.state = this.states.DEFAULT;
@@ -202,8 +207,8 @@ Memory.Card = Pew.Utils.inherit(Pew.Entity, {
         if (this.state === this.states.DEFAULT && this.getState().flippedCards.count() < 2) {
             this.getState().table.numMoves++;
             this.sprites.back.visible = false;
-            this.sprites.flip.animations.play('flip', 20);
             this.sprites.flip.visible = true;
+            this.sprites.flip.animations.play('flip');
             var self = this;
             setTimeout(function () {
                 self.sprites.flip.visible = false;
@@ -220,8 +225,14 @@ Memory.Card = Pew.Utils.inherit(Pew.Entity, {
     flipBack: function () {
         if (this.state === this.states.FLIPPED) {
             this.sprites.front.visible = false;
-            this.sprites.back.visible = true;
-            this.state = this.states.DEFAULT;
+            this.sprites.flipBack.visible = true;
+            this.sprites.flipBack.animations.play('flipBack');
+            var self = this;
+            setTimeout(function () {
+                self.sprites.flipBack.visible = false;
+                self.sprites.back.visible = true;
+                self.state = self.states.DEFAULT;
+            }, 120);
         }
     },
 
@@ -258,6 +269,7 @@ Memory.CardGroup = Pew.Utils.inherit(Pew.EntityGroup, {
         this.game.load.image('card7', 'img/card_submarine.png');
         this.game.load.image('card8', 'img/card_train.png');
         this.game.load.spritesheet('flip', 'img/card_flip.png', 100, 100, 6);
+        this.game.load.spritesheet('flipBack', 'img/card_flip_back.png', 100, 100, 6);
     }
 });
 
@@ -345,14 +357,13 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
     }
 });
 
-var width = navigator.isCocoonJS ? window.innerHeight : 510,
-    height = navigator.isCocoonJS ? window.innerHeight : 540;
-
 // create the game.
-var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
+var game = new Phaser.Game(510, 540, Phaser.AUTO, 'memory');
 
 /**
- *
+ * Menu state.
+ * @class Memory.MenuState
+ * @augments Pew.State
  */
 Memory.MenuState = Pew.Utils.inherit(Pew.State, {
     /**
@@ -378,7 +389,9 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
 });
 
 /**
- *
+ * Game state.
+ * @class Memory.GameState
+ * @augments Pew.State
  */
 Memory.GameState = Pew.Utils.inherit(Pew.State, {
     /**
