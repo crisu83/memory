@@ -357,8 +357,11 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
     }
 });
 
+var width = navigator.isCocoonJS ? window.innerWidth : 510,
+    height = navigator.isCocoonJS ? window.innerHeight: 540;
+
 // create the game.
-var game = new Phaser.Game(510, 540, Phaser.AUTO, 'memory');
+var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
 
 /**
  * Menu state.
