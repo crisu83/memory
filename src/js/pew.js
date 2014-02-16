@@ -205,6 +205,7 @@ Pew.State = Pew.Utils.inherit(Phaser.State, {
     create: function() {
         this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
         this.game.stage.scale.pageAlignHorizontally = true;
+        this.game.stage.scale.pageAlignVertically = true;
         this.game.stage.scale.setScreenSize(true);
     }
 });

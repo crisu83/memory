@@ -371,6 +371,12 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
      */
     newGame: null,
     /**
+     * Creates the state.
+     */
+    constructor: function() {
+        this.forcePortrait = true;
+    },
+    /**
      * Performs preloading for the state.
      * @param {Phaser.Game} game
      */
@@ -415,6 +421,12 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
      */
     collectedCards: null,
     /**
+     * Creates the state.
+     */
+    constructor: function() {
+        this.forcePortrait = true;
+    },
+    /**
      * Performs preloading for the state.
      * @param {Phaser.Game} game
      */
@@ -445,7 +457,7 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
     }
 });
 
-game.state.add(Memory.states.MENU, new Memory.MenuState(game));
-game.state.add(Memory.states.GAME, new Memory.GameState(game));
+game.state.add(Memory.states.MENU, new Memory.MenuState());
+game.state.add(Memory.states.GAME, new Memory.GameState());
 
 game.state.start(Memory.states.MENU);
