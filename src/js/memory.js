@@ -357,8 +357,10 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
     }
 });
 
-var width = navigator.isCocoonJS ? window.innerWidth : 510,
-    height = navigator.isCocoonJS ? window.innerHeight: 540;
+var gameWidth = 510,
+    gameHeight = 540,
+    width = navigator.isCocoonJS ? window.innerWidth : gameWidth,
+    height = navigator.isCocoonJS ? window.innerHeight: gameHeight;
 
 // create the game.
 var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
@@ -377,7 +379,8 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
      * Creates the state.
      */
     constructor: function() {
-        this.forcePortrait = true;
+        this.width = gameWidth;
+        this.height = gameHeight;
     },
     /**
      * Performs preloading for the state.
@@ -427,7 +430,8 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
      * Creates the state.
      */
     constructor: function() {
-        this.forcePortrait = true;
+        this.width = gameWidth;
+        this.height = gameHeight;
     },
     /**
      * Performs preloading for the state.
