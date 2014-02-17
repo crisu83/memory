@@ -30,7 +30,7 @@ Pew.Utils = {
         return child;
     },
     /**
-     * Creates a new game.
+     * Creates a new game with support for CocoonJS.
      * @param {number} width
      * @param {number} height
      * @param {number} renderer
@@ -39,10 +39,10 @@ Pew.Utils = {
      * @param {boolean} antialias
      * @returns {Phaser.Game}
      */
-    game: function(width, height, renderer, parent, transparent, antialias) {
+    cocoon: function(width, height, renderer, parent, transparent, antialias) {
         var gameWidth = width,
             gameHeight = height,
-            isCocoonJS = navigator.isCocoonJS;
+            isCocoonJS = Phaser.Device.cocoonJS;
 
         if (isCocoonJS) {
             width = window.innerWidth;
@@ -51,8 +51,8 @@ Pew.Utils = {
 
         return new Phaser.Game(width, height, renderer, parent, {
             /**
-             *
-             * @param game
+             * Creates the game.
+             * @param {Phaser.Game} game
              */
             create: function(game) {
                 if (isCocoonJS) {

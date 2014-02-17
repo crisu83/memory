@@ -358,7 +358,7 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
 });
 
 // create the game.
-var game = Pew.Utils.game(800, 600, Phaser.AUTO, 'memory');
+var game = Pew.Utils.cocoon(800, 600, Phaser.AUTO, 'memory');
 
 /**
  * Menu state.
