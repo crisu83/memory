@@ -375,7 +375,7 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
      * @param {Phaser.Game} game
      */
     preload: function(game) {
-        game.load.bitmapFont('Mecha', 'img/font.png', 'img/font.xml');
+        game.load.bitmapFont('Mecha', 'fnt/mecha/mecha_bold.png', 'fnt/mecha/mecha_bold.xml');
         game.load.image('button', 'img/button.png');
         this.newGame = new Memory.Button(game.width / 2 - 70, game.height / 2 + 20, game);
     },
@@ -422,7 +422,7 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
      * @param {Phaser.Game} game
      */
     preload: function (game) {
-        game.load.bitmapFont('Mecha', 'img/font.png', 'img/font.xml');
+        game.load.bitmapFont('Mecha', 'fnt/mecha/mecha_bold.png', 'fnt/mecha/mecha_bold.xml');
         this.table = new Memory.Table(4, 4, game);
         this.cards = new Memory.CardGroup(game);
         this.cards.preload();
