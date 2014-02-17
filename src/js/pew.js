@@ -28,6 +28,45 @@ Pew.Utils = {
         }
         child.__super__ = parent.prototype;
         return child;
+    },
+    /**
+     * Creates a new game.
+     * @param {number} width
+     * @param {number} height
+     * @param {number} renderer
+     * @param {string|HTMLElement} parent
+     * @param {boolean} transparent
+     * @param {boolean} antialias
+     * @returns {Phaser.Game}
+     */
+    game: function(width, height, renderer, parent, transparent, antialias) {
+        var gameWidth = width,
+            gameHeight = height,
+            isCocoonJS = navigator.isCocoonJS;
+
+        if (isCocoonJS) {
+            width = window.innerWidth;
+            height = window.innerHeight;
+        }
+
+        return new Phaser.Game(width, height, renderer, parent, {
+            /**
+             *
+             * @param game
+             */
+            create: function(game) {
+                if (isCocoonJS) {
+                    var ratios = {
+                        x: width / gameWidth,
+                        y: height / gameHeight
+                    };
+                    var scale = ratios.x > ratios.y ? ratios.x : ratios.y;
+                    game.world._container.scale.x = scale;
+                    game.world._container.scale.y = scale;
+                    game.world._container.updateTransform();
+                }
+            }
+        }, transparent, antialias);
     }
 };
 
@@ -200,38 +239,14 @@ Pew.EntityGroup = Pew.Utils.inherit(Pew.Object, {
  */
 Pew.State = Pew.Utils.inherit(Phaser.State, {
     /**
-     *@type {number}
-     */
-    width: 800,
-    /**
-     * @type {number}
-     */
-    height: 600,
-    /**
      * Creates the stage.
      */
     create: function() {
-        if (navigator.isCocoonJS) {
-            var scale = this.calculateCocoonJSScale();
-            this.game.world._container.scale.x = scale;
-            this.game.world._container.scale.y = scale;
-            this.game.world._container.updateTransform();
-        } else {
+        if (!navigator.isCocoonJS) {
             this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
             this.game.stage.scale.pageAlignHorizontally = true;
             this.game.stage.scale.pageAlignVertically = true;
             this.game.stage.scale.setScreenSize(true);
         }
-    },
-    /**
-     * Calculates the scale for CocoonJS.
-     * @returns {number}
-     */
-    calculateCocoonJSScale: function() {
-        var scale = {
-            x: window.innerWidth / this.width,
-            y: window.innerHeight / this.height
-        };
-        return scale.x > scale.y ? scale.x : scale.y;
     }
 });

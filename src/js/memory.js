@@ -50,10 +50,10 @@ Memory.Table = Pew.Utils.inherit(Pew.Entity, {
             'card5', 'card5', 'card6', 'card6', 'card7', 'card7', 'card8', 'card8'
         ]);
 
-        var xs = 40,
+        var xs = 180,
             x = xs,
-            y = 40,
-            offset = 110,
+            y = 50,
+            offset = 115,
             i, j, index, key;
 
         for (i = 0; i < this.rows; i++) {
@@ -262,7 +262,7 @@ Memory.CardGroup = Pew.Utils.inherit(Pew.EntityGroup, {
         this.game.load.image('back', 'img/card_back.png');
         this.game.load.image('card1', 'img/card_bulldozer.png');
         this.game.load.image('card2', 'img/card_firetruck.png');
-        this.game.load.image('card3', 'img/card_police.png');
+        this.game.load.image('card3', 'img/card_policecar.png');
         this.game.load.image('card4', 'img/card_roadster.png');
         this.game.load.image('card5', 'img/card_sailboat.png');
         this.game.load.image('card6', 'img/card_steamboat.png');
@@ -313,10 +313,10 @@ Memory.GUI = Pew.Utils.inherit(Pew.Entity, {
             this.game.world.remove(this.scoreText);
         }
 
-        var style = {font: '20px Arial', fill: '#ffffff', align: 'left'},
+        var style = {font: '36px Mecha', fill: '#ffffff', align: 'left'},
             text = 'Score: ' + this.score;
 
-        this.scoreText = this.game.add.text(40, this.game.height - 50, text, style);
+        this.scoreText = this.game.add.bitmapText(180, this.game.height - 70, text, style);
     }
 });
 
@@ -345,8 +345,8 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
         sprite.events.onInputDown.add(this.startGame, this);
         this.sprite = sprite;
 
-        var style = {font: '48px Arial', fill: '#ffffff', align: 'center'};
-        this.game.add.text(this.x, this.y, 'START', style);
+        var style = {font: '48px Mecha', fill: '#ffffff', align: 'center'};
+        this.game.add.bitmapText(this.x, this.y, 'Start', style);
     },
 
     /**
@@ -357,13 +357,8 @@ Memory.Button = Pew.Utils.inherit(Pew.Entity, {
     }
 });
 
-var gameWidth = 510,
-    gameHeight = 540,
-    width = navigator.isCocoonJS ? window.innerWidth : gameWidth,
-    height = navigator.isCocoonJS ? window.innerHeight: gameHeight;
-
 // create the game.
-var game = new Phaser.Game(width, height, Phaser.AUTO, 'memory');
+var game = Pew.Utils.game(800, 600, Phaser.AUTO, 'memory');
 
 /**
  * Menu state.
@@ -376,19 +371,13 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
      */
     newGame: null,
     /**
-     * Creates the state.
-     */
-    constructor: function() {
-        this.width = gameWidth;
-        this.height = gameHeight;
-    },
-    /**
      * Performs preloading for the state.
      * @param {Phaser.Game} game
      */
     preload: function(game) {
+        game.load.bitmapFont('Mecha', 'img/font.png', 'img/font.xml');
         game.load.image('button', 'img/button.png');
-        this.newGame = new Memory.Button(game.width / 2 - 70, game.height / 2 - 20, game);
+        this.newGame = new Memory.Button(game.width / 2 - 70, game.height / 2 + 20, game);
     },
     /**
      * Creates the state.
@@ -396,6 +385,8 @@ Memory.MenuState = Pew.Utils.inherit(Pew.State, {
      */
     create: function(game) {
         Pew.State.prototype.create.apply(this, arguments);
+        var style = {font: '64px Mecha', fill: '#ffffff', align: 'center'};
+        this.game.add.bitmapText(game.width / 2 - 110, game.height / 2 - 80, 'MEMORY', style);
         this.newGame.create();
     }
 });
@@ -427,17 +418,11 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
      */
     collectedCards: null,
     /**
-     * Creates the state.
-     */
-    constructor: function() {
-        this.width = gameWidth;
-        this.height = gameHeight;
-    },
-    /**
      * Performs preloading for the state.
      * @param {Phaser.Game} game
      */
     preload: function (game) {
+        game.load.bitmapFont('Mecha', 'img/font.png', 'img/font.xml');
         this.table = new Memory.Table(4, 4, game);
         this.cards = new Memory.CardGroup(game);
         this.cards.preload();
