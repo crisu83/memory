@@ -422,7 +422,7 @@ Memory.GameState = Pew.Utils.inherit(Pew.State, {
      * @param {Phaser.Game} game
      */
     preload: function (game) {
-        game.load.bitmapFont('Mecha', 'fnt/mecha/mecha_bold.png', 'fnt/mecha/mecha_bold.xml');
+        game.load.bitmapFont('Mecha', 'fnt/mecha/mecha_bold.png', 'fnt/mecha/mecha_bold.json');
         this.table = new Memory.Table(4, 4, game);
         this.cards = new Memory.CardGroup(game);
         this.cards.preload();

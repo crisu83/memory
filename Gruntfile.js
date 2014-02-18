@@ -37,6 +37,7 @@ module.exports = function (grunt) {
         uglify: {
             dist: {
                 files: {
+                    'dist/js/lib/domparser.js': ['src/js/lib/domparser.js'],
                     'dist/js/lib/underscore.js': ['src/js/lib/underscore.js'],
                     'dist/js/lib/phaser.js': ['src/js/lib/phaser.js'],
                     'dist/js/memory.js': ['src/js/memory.js'],
