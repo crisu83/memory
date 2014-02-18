@@ -34762,7 +34762,6 @@ Phaser.Loader.prototype = {
     * @return {Phaser.Loader} This Loader instance.
     */
     bitmapFont: function (key, textureURL, xmlURL, xmlData) {
-
         if (typeof xmlURL === "undefined") { xmlURL = null; }
         if (typeof xmlData === "undefined") { xmlData = null; }
 
@@ -34779,6 +34778,7 @@ Phaser.Loader.prototype = {
                 var xml;
 
                 try  {
+                    console.log(window.DOMParser);
                     if (window['DOMParser'])
                     {
                         var domparser = new DOMParser();
@@ -35444,6 +35444,7 @@ Phaser.Loader.prototype = {
             {
                 var domparser = new DOMParser();
                 xml = domparser.parseFromString(data, "text/xml");
+                //console.log(xml);
             }
             else
             {
